@@ -1,12 +1,17 @@
 import { Component } from 'react';
-import SelectPlayer from '../../components/SelectPlayer/SelectPlayer';
-import Watchlist from '../../components/Watchlist/Watchlist';
-
 import './App.css';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import AuthPage from '../AuthPage/AuthPage';
+import AddPlayerPage from '../AddPlayerPage/AddPlayerPage'
 
 export default class App extends Component {
   state = {
+    user: null,
     players: []
+  }
+
+  setUserInState = (incomingUserData) => {
+    this.setState({ user: incomingUserData})
   }
 
   getPlayers = async () => {
@@ -18,22 +23,25 @@ export default class App extends Component {
 
   render() {
     return (
-      <main className="App">
-        {this.state.players.length ? 
-          this.state.players.map(p => (
-            <Watchlist
-              player={p}
-              getPlayers={this.getPlayers}
-            />
-          ))
-            :
-          <h1>No Players</h1>
+      <div>
+        <main className="App">
+          
+        { this.state.user ? 
+          <Switch>
+            <Route path='/players/add' render={(props) => (
+              <AddPlayerPage {...props}/>
+            )}/>
+            {/* <Route path='/orders' render={(props) => (
+              <OrderHistoryPage {...props}/>
+            )}/> */}
+            <Redirect to="/orders" />
+          </Switch>
+          :
+          <AuthPage setUserInState={this.setUserInState}/>
         }
-        <SelectPlayer
-          getPlayers={this.getPlayers}
-        />
-        App
-      </main>
+          App
+        </main>
+      </div>
     )
   }
 }
