@@ -1,6 +1,7 @@
 import { Component } from "react";
 import SelectPlayer from "../../components/SelectPlayer/SelectPlayer";
 import Watchlist from "../../components/Watchlist/Watchlist";
+import UserLogOut from '../../components/UserLogOut/UserLogOut';
 // import "./App.css";
 
 export default class App extends Component {
@@ -25,6 +26,9 @@ export default class App extends Component {
   render() {
     return (
       <main className="AddPlayerPage">
+          <nav className="nav">
+            <UserLogOut />
+            </nav>
         {this.state.players.length ? (
           this.state.players.map((p) => (
             <Watchlist player={p} getPlayers={this.getPlayers} />

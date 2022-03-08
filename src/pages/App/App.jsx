@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import AuthPage from '../AuthPage/AuthPage';
 import AddPlayerPage from '../AddPlayerPage/AddPlayerPage'
+import axios from "axios"
 
 export default class App extends Component {
   state = {
@@ -17,8 +18,31 @@ export default class App extends Component {
   getPlayers = async () => {
     await fetch("/api").then((res) => res.json()).then(data => this.setState({players: data}))
   }
-  componentDidMount() {
+  async componentDidMount() {
     this.getPlayers()
+    let token = localStorage.getItem('token')
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1])); // decode token
+      if (payload.exp < Date.now() / 1000) {  // Check if our token is expired, and remove if it is (standard/boilerplate)
+        localStorage.removeItem('token');
+        token = null;
+      } else { // token not expired! our user is still 'logged in'. Put them into state.
+        let userDoc = payload.user // grab user details from token
+        this.setState({user: userDoc})      
+      }
+    }
+    const url = "https://www.balldontlie.io/api/v1/players"
+    let result = null
+    try {
+      result = await axios(url, {
+        headers: {
+          Accept: "application/json"
+        }
+      })
+    } catch(e) {
+      console.log(e)
+    }
+    this.setState({players: result.data.data})
   }
 
   render() {
@@ -34,7 +58,7 @@ export default class App extends Component {
             {/* <Route path='/orders' render={(props) => (
               <OrderHistoryPage {...props}/>
             )}/> */}
-            <Redirect to="/orders" />
+            <Redirect to="/players/add" />
           </Switch>
           :
           <AuthPage setUserInState={this.setUserInState}/>
