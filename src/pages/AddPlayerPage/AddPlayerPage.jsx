@@ -29,15 +29,15 @@ export default class App extends Component {
           <nav className="nav">
             <UserLogOut />
             </nav>
-        {this.state.players.length ? (
-          this.state.players.map((p) => (
+        {this.props.players.length ? (
+          this.props.players.map((p) => (
             <Watchlist player={p} getPlayers={this.getPlayers} />
           ))
         ) : (
           <h1>No Players</h1>
         )}
         <SelectPlayer getPlayers={this.getPlayers} />
-        App
+        add player page
       </main>
     );
   }

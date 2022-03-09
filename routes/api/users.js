@@ -7,4 +7,6 @@ router.post('/signup', usersCtrl.create);
 // POST /api/users/login
 router.post('/login', usersCtrl.login);
 
+router.post('/logout', usersCtrl.logout);
+
 module.exports = router;

@@ -53,17 +53,17 @@ export default class App extends Component {
         { this.state.user ? 
           <Switch>
             <Route path='/players/add' render={(props) => (
-              <AddPlayerPage {...props}/>
+              <AddPlayerPage players={this.state.players}/>
             )}/>
             {/* <Route path='/orders' render={(props) => (
               <OrderHistoryPage {...props}/>
             )}/> */}
-            <Redirect to="/players/add" />
+            <Redirect to="/" />
           </Switch>
           :
           <AuthPage setUserInState={this.setUserInState}/>
         }
-          App
+          App sdfd
         </main>
       </div>
     )

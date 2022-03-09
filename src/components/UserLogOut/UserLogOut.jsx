@@ -6,7 +6,7 @@ class UserLogOut extends React.Component {
   return (
       <div className='UserLogOut'>
         <div>Name: ??</div>
-        <div>Email: ??</div>
+        {/* <div>Email: {this.state.email}</div> */}
         <button className="btn-sm">Logout</button>
       </div>
   );
