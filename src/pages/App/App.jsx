@@ -59,7 +59,7 @@ export default class App extends Component {
         { this.state.user ? 
           <Switch>
             <Route path='/players/add' render={(props) => (
-              <AddPlayerPage players={this.state.players} setUserInState={this.setUserInState}/>
+              <AddPlayerPage players={this.state.players} setUserInState={this.setUserInState} user={this.state.user}/>
 
             )}/>
             {/* <Route path='/orders' render={(props) => (

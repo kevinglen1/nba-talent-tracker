@@ -7,8 +7,6 @@ export default class Watchlist extends React.Component {
   };
 
   removeFromList = async (id) => {
-    console.log("player id", this.id);
-    console.log("player id", this.id);
 
     try {
       

@@ -27,8 +27,8 @@ class UserLogOut extends React.Component {
       <div className='UserLogOut' onSubmit={this.logout}>
         <form>
           
-        <div>Name: {this.props.user}</div>
-        {/* <div>Email: {this.state.email}</div> */}
+        <div>Name: {this.props.user.name}</div>
+        <div>Email: {this.props.user.email}</div>
         <button className="btn-sm" type="submit">Logout</button>
         </form>
       </div>
