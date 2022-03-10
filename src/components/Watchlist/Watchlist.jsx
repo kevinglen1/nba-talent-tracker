@@ -10,13 +10,15 @@ export default class Watchlist extends React.Component {
   async componentDidMount() {
     try {
       let jwt = localStorage.getItem('token')
-      let fetchPlayersResponse = await fetch('/api/players', {headers: {'Authorization': 'Bearer ' + jwt}})
+      let fetchPlayersResponse = await fetch('/api/players', {
+        method: "GET",  
+        headers: {"Content-Type": "application/json",'Authorization': 'Bearer ' + jwt}})
       console.log(fetchPlayersResponse)
-      if (!fetchPlayersResponse.ok) throw new Error("Couldn't fetch players")
-      let players = await fetchPlayersResponse.json(); // <------- convert fetch response into a js object
-
+    //   if (!fetchPlayersResponse.ok) throw new Error("Couldn't fetch players")
+      let playerList = await fetchPlayersResponse.json(); // <------- convert fetch response into a js object
+        console.log(playerList)
       // put into state
-      this.setState({ players: players})
+      this.setState({ players: playerList})
     } catch (err) {
       console.error('ERROR:', err) // <-- log if error
     }
