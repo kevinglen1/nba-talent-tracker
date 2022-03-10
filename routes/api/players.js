@@ -7,4 +7,6 @@ router.get('/', playersCtrl.list);
 // POST /api/players/list/items/:id
 router.post('/', playersCtrl.addToList);
 
+router.delete('/:id', playersCtrl.removeFromList);
+
 module.exports = router;

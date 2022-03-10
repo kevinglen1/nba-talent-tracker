@@ -8,6 +8,7 @@ const playerSchema = new Schema({
     trim: true, // trims whitespace if your user types something like " alex@123.com " into "alex@123.com"
     lowercase: true,
   },
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
 module.exports = mongoose.model('Player', playerSchema);
