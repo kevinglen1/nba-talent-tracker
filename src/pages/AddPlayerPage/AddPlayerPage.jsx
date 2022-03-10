@@ -1,43 +1,28 @@
 import { Component } from "react";
 import SelectPlayer from "../../components/SelectPlayer/SelectPlayer";
-import Watchlist from "../../components/Watchlist/Watchlist";
+import AvailablePlayers from "../../components/AvailablePlayers/AvailablePlayers";
 import UserLogOut from '../../components/UserLogOut/UserLogOut';
+import Watchlist from "../../components/Watchlist/Watchlist";
 // import "./App.css";
 
-export default class App extends Component {
-  state = {
-    user: null,
-    players: [],
-  };
+export default class AddPlayerPage extends Component {
 
-  setUserInState = (incomingUserData) => {
-    this.setState({ user: incomingUserData });
-  };
 
-  getPlayers = async () => {
-    await fetch("/api")
-      .then((res) => res.json())
-      .then((data) => this.setState({ players: data }));
-  };
-  componentDidMount() {
-    this.getPlayers();
-  }
 
   render() {
     return (
       <main className="AddPlayerPage">
           <nav className="nav">
-            <UserLogOut />
+            <UserLogOut setUserInState={this.props.setUserInState} user={this.props.user}/>
             </nav>
+          <Watchlist />
         {this.props.players.length ? (
           this.props.players.map((p) => (
-            <Watchlist player={p} getPlayers={this.getPlayers} />
+            <AvailablePlayers player={p} getPlayers={this.props.getPlayers} />
           ))
         ) : (
           <h1>No Players</h1>
         )}
-        <SelectPlayer getPlayers={this.getPlayers} />
-        add player page
       </main>
     );
   }

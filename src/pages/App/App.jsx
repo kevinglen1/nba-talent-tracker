@@ -8,7 +8,8 @@ import axios from "axios"
 export default class App extends Component {
   state = {
     user: null,
-    players: []
+    players: [],
+    watchlist: []
   }
 
   setUserInState = (incomingUserData) => {
@@ -18,6 +19,11 @@ export default class App extends Component {
   getPlayers = async () => {
     await fetch("/api").then((res) => res.json()).then(data => this.setState({players: data}))
   }
+
+  // addPlayerToWatchlist = () => {
+  //   let playerId = 
+  //   this.setState({watchlist: playerId})
+  // }
   async componentDidMount() {
     this.getPlayers()
     let token = localStorage.getItem('token')
@@ -54,6 +60,7 @@ export default class App extends Component {
           <Switch>
             <Route path='/players/add' render={(props) => (
               <AddPlayerPage players={this.state.players}/>
+
             )}/>
             {/* <Route path='/orders' render={(props) => (
               <OrderHistoryPage {...props}/>

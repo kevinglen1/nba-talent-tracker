@@ -24,7 +24,8 @@ const userSchema = new Schema({
       delete ret.password;
       return ret;
     }
-  }
+  },
+  players: [{type: Schema.Types.ObjectId, ref: 'Player'}]
 });
 
 module.exports = mongoose.model('User', userSchema);
