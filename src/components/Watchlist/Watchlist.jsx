@@ -1,4 +1,4 @@
-// import './Watchlist.css';
+import './Watchlist.css';
 import React from "react";
 
 export default class Watchlist extends React.Component {
@@ -9,6 +9,7 @@ export default class Watchlist extends React.Component {
   removeFromList = async (id) => {
 
     try {
+      console.log('remove from list', this.state.players)
       
       let jwt = localStorage.getItem("token");
 
@@ -19,16 +20,20 @@ export default class Watchlist extends React.Component {
           Authorization: "Bearer " + jwt,
         },
         body: JSON.stringify({
-          id: this.state.players.id,
-          first_name: this.state.players.first_name,
+          id: id,
         }),
       });
       console.log(fetchResponse);
       let serverResponse = await fetchResponse.json(); // <-- decode fetch response
       console.log("Success:", serverResponse); // <-- log server response
 
-      //   const userDoc = JSON.parse(atob(token.split('.')[1])).user; // 5. Decode the token + put user document into state
-      //   this.props.setUserInState(userDoc)
+      console.log('1st id',id)
+
+      var filteredArray = this.state.players.filter(function(player) { return player.id !== id })
+      console.log('2nd id',id)
+      console.log(filteredArray)
+      this.setState({players: filteredArray})
+
     } catch (err) {
       console.log("Remove player error", err);
       this.setState({ error: "Remove Player Failed - Try Again" });
@@ -39,20 +44,16 @@ export default class Watchlist extends React.Component {
     try {
       
       let jwt = localStorage.getItem("token");
-      // let fetchPlayersResponse = await fetch('/api/players', {
-      //   method: "GET",
-      //   headers: {"Content-Type": "application/json",'Authorization': 'Bearer ' + jwt}
-      // })
+
       let fetchPlayersResponse = await fetch("/api/players", {
         method: "GET",
         headers: { Authorization: "Bearer " + jwt },
       });
 
       if (!fetchPlayersResponse.ok) throw new Error("Couldn't fetch orders");
-      console.log("fetchPlayersResponse", fetchPlayersResponse);
       //   if (!fetchPlayersResponse.ok) throw new Error("Couldn't fetch players")
       let playerList = await fetchPlayersResponse.json(); // <------- convert fetch response into a js object
-      console.log("playerlist", playerList);
+   
       // put into state
       this.setState({ players: playerList });
     } catch (err) {
@@ -63,7 +64,7 @@ export default class Watchlist extends React.Component {
   render() {
     return (
       <div className="Watchlist">
-        <table>
+        <table className="fl-table">
           <thead>
             <tr>
               <th>Player ID</th>
@@ -75,24 +76,21 @@ export default class Watchlist extends React.Component {
             {this.state.players.length ? (
               this.state.players.map((p) => (
                 <tr>
-                  <div
-                    className="WatchlistPlayers"
-                    onClick={() => this.removeFromList(p.id)}
-                  >
-                    <form>
+                  
+                    
                       <td className="title">{p.id}</td>
                       <td className="content">{p.first_name}</td>
                       <td>
-                        <button className="btn-sm" type="submit">
+                        <button className="btn-sm" onClick={() => this.removeFromList(p.id)}>
                           Remove From Watchlist
                         </button>
                       </td>
-                    </form>
-                  </div>
+                    
+                  
                 </tr>
               ))
             ) : (
-              <h1>No Players In Watchlist</h1>
+              <tr><td><h1>No Players In Watchlist</h1></td></tr>
             )}
           </tbody>
         </table>

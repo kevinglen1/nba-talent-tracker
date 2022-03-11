@@ -1,5 +1,4 @@
 import { Component } from "react";
-import SelectPlayer from "../../components/SelectPlayer/SelectPlayer";
 import AvailablePlayers from "../../components/AvailablePlayers/AvailablePlayers";
 import UserLogOut from '../../components/UserLogOut/UserLogOut';
 import Watchlist from "../../components/Watchlist/Watchlist";
