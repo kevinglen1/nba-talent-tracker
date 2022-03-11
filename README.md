@@ -5,7 +5,7 @@ Track the ups and downs of NBA players to inform your fantasy basketball transca
 ![Screen shot of Main Page](./Screen%20Shot.png)
 
 # Technologies Used: 
-Node, MongoDB, Mongoose, React, HTML, CSS, Javascript
+Node, MongoDB, Mongoose, React, HTML, CSS, Javascript, token-based authentication
 
 # Getting Started: 
 
