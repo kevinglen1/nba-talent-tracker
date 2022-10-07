@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const playerSchema = new Schema({
+const playerdatabaseSchema = new Schema({
   id: {type: Number},
   first_name: {
     type: String,
@@ -13,7 +13,24 @@ const playerSchema = new Schema({
     trim: true, // trims whitespace if your user types something like " alex@123.com " into "alex@123.com"
     lowercase: true,
   },
-  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  position: {
+    type: String,
+    trim: true, // trims whitespace if your user types something like " alex@123.com " into "alex@123.com"
+    lowercase: true,
+  },
+  height_feet: {
+    type: Number,
+  },
+  height_inches: {
+    type: Number,
+  },
+  weight_pounds: {
+    type: Number,
+  },
+  // team: {
+
+  // }
+  
 });
 
-module.exports = mongoose.model('Player', playerSchema);
+module.exports = mongoose.model('PlayerDatabase', playerdatabaseSchema);

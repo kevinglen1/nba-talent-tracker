@@ -1,3 +1,5 @@
+import './SignUpForm.css'
+
 import { Component } from "react";
 
 export default class SignUpForm extends Component {

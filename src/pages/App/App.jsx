@@ -50,6 +50,7 @@ export default class App extends Component {
           Accept: "application/json",
         },
       });
+      console.log(result.data.data[0].first_name)
     } catch (e) {
       console.log(e);
     }
