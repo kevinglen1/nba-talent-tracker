@@ -1,19 +1,19 @@
 const axios = require('axios');
-const PlayerDatabaseModel = require('../models/playerdatabase');
+const GameDatabaseModel = require('../models/gamedatabase');
 
 module.exports = {
-  updatePlayerDatabase,
+  updateGameDatabase,
 };
 
-async function updatePlayerDatabase(req, res) {
-  await PlayerDatabaseModel.remove()
+async function updateGameDatabase(req, res) {
+  await GameDatabaseModel.remove()
   .catch(function (err) {
     console.log(err);
  });
 
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 1462; i++) {
 
-    const url = `https://www.balldontlie.io/api/v1/players?per_page=100&page=${i}`;
+    const url = `https://www.balldontlie.io/api/v1/stats?per_page=100&page=${i}`;
         let result = null;
         try {
           result = await axios(url, {
@@ -21,9 +21,9 @@ async function updatePlayerDatabase(req, res) {
               Accept: "application/json",
             },
           });
-            // input each player individually
+            // input each Game individually
             for (let j = 0; j < 100; j++) {
-            await PlayerDatabaseModel.create({
+            await GameDatabaseModel.create({
               id: result.data.data[j].id, 
               first_name: result.data.data[j].first_name,
               last_name: result.data.data[j].last_name,
@@ -34,9 +34,10 @@ async function updatePlayerDatabase(req, res) {
               team_name: result.data.data[j].team.full_name,
               team_id: result.data.data[j].team.id
             })
+            console.log(result.data.data[j].id)
           }
 
-          console.log("Player API request #:", i)
+          console.log("API request #:", i)
         } catch (e) {
           console.log(e);
         }

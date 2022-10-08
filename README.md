@@ -7,6 +7,8 @@ Track the ups and downs of NBA players to inform your fantasy basketball transca
 # Technologies Used: 
 Node, MongoDB, Mongoose, React, HTML, CSS, Javascript, token-based authentication
 
+JSON to Mongoose Schema converter: https://transform.tools/json-to-mongoose
+
 # Getting Started: 
 
 A link to the deployed app: https://nba-talent-tracker.herokuapp.com/

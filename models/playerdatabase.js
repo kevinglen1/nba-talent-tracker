@@ -27,10 +27,13 @@ const playerdatabaseSchema = new Schema({
   weight_pounds: {
     type: Number,
   },
-  // team: {
-
-  // }
-  
+  team_name: {
+    type: String,
+    lowercase: true,
+  },
+  team_id: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model('PlayerDatabase', playerdatabaseSchema);
